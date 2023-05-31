@@ -8,6 +8,11 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
+
+    @Setter
+    @Getter
+    String id;
+
     @Setter
     @Getter
     String username;

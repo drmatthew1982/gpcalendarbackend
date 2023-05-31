@@ -7,4 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectUserList" resultType="com.matthewz.gpcalendarbackend.users.User">
         select * from Users;
     </select>
+    <select id="findUser" resultType="com.matthewz.gpcalendarbackend.users.User">
+        select * from Users where username = #{username} and password = #{password};
+    </select>
 </mapper>
