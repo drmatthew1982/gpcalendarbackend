@@ -1,5 +1,7 @@
 package com.matthewz.gpcalendarbackend.organizations;
 
+import com.matthewz.gpcalendarbackend.common.Massage;
+import com.matthewz.gpcalendarbackend.common.MeaasgeTextEnum;
 import com.matthewz.gpcalendarbackend.mapper.OrganizationMapper;
 import com.matthewz.gpcalendarbackend.mapper.UserMapper;
 import com.matthewz.gpcalendarbackend.users.User;
@@ -19,16 +21,21 @@ import java.util.List;
 public class OrganizationController {
     @Autowired
     private OrganizationMapper orginazationMappper;
-
+    @RequestMapping("/findorgbyuserid")
+    public ResponseEntity<Object> findOrgsByUserId(Organization organization, HttpServletResponse response) {
+        List<Organization> orgs = orginazationMappper.findOrgByUserId(organization);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity<Object>(orgs,HttpStatus.OK);
+    }
     @RequestMapping("/createorg")
     public ResponseEntity<Object> createorg(Organization organization, HttpServletResponse response) {
         List<Organization> orgs = orginazationMappper.findOrgByCodeAndUserId(organization);
         if(orgs.size()==0) {
-            orginazationMappper.createOrganizationMapper(organization);
+            orginazationMappper.createOrganization(organization);
             response.setHeader("Access-Control-Allow-Origin", "*");
-            return new ResponseEntity<Object>(HttpStatus.OK);
+            return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.SUCCESS.getCode(),MeaasgeTextEnum.SUCCESS.getText()),HttpStatus.OK);
         }else{
-            return new ResponseEntity<Object>(HttpStatus.CONFLICT);
+            return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.DUPLICATE.getCode(),MeaasgeTextEnum.DUPLICATE.getText()),HttpStatus.CONFLICT);
         }
     }
 }

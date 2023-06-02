@@ -13,7 +13,7 @@ public class Organization {
 
     @Setter
     @Getter
-    String name;
+    String org_name;
 
     @Setter
     @Getter

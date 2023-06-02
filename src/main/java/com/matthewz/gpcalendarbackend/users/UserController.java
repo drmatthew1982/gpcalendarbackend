@@ -20,7 +20,7 @@ public class UserController {
         List<User> users = userMappper.selectUserList();
         return users;
     }
-    @RequestMapping("/logincheck")
+    @PostMapping("/logincheck")
     public ResponseEntity<Object> logincheck(String username, String password, HttpServletResponse response) {
         List<User> users = userMappper.findUser(username,password);
         response.setHeader("Access-Control-Allow-Origin", "*");

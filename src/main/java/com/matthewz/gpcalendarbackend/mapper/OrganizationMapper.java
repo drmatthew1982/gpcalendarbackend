@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component(value = "orginzationMapper")
+@Component(value = "organizationMapper")
 public interface OrganizationMapper {
-
-
-    List<Organization> findOrgByCodeAndUserId(Organization organization);
-    void createOrganizationMapper(Organization organization);
+    List<Organization> findOrgByCodeAndUserId(@Param("org")Organization organization);
+    List<Organization> findOrgByUserId(@Param("org")Organization organization);
+    void createOrganization(@Param("org")Organization organization);
 }
