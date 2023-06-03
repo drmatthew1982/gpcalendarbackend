@@ -1,7 +1,6 @@
 package com.matthewz.gpcalendarbackend.mapper;
 import com.matthewz.gpcalendarbackend.organizations.Organization;
-import com.matthewz.gpcalendarbackend.users.User;
-import org.springframework.data.repository.query.Param;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,4 +11,5 @@ public interface OrganizationMapper {
     List<Organization> findOrgByUserId(@Param("org")Organization organization);
     void createOrganization(@Param("org")Organization organization);
     void updateOrganization(@Param("org")Organization organization);
+    void createOrgUserRelation(@Param("user_id")String userid,@Param("org_id")String org_id);
 }

@@ -32,6 +32,8 @@ public class OrganizationController {
         List<Organization> orgs = orginazationMappper.findOrgByCodeAndUserId(organization);
         if(orgs.size()==0) {
             orginazationMappper.createOrganization(organization);
+            List<Organization> updatedOrgs = orginazationMappper.findOrgByCodeAndUserId(organization);
+            orginazationMappper.createOrgUserRelation(organization.getCreated_user_id(),updatedOrgs.get(0).getId());
             response.setHeader("Access-Control-Allow-Origin", "*");
             return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
         }else{
