@@ -33,9 +33,16 @@ public class OrganizationController {
         if(orgs.size()==0) {
             orginazationMappper.createOrganization(organization);
             response.setHeader("Access-Control-Allow-Origin", "*");
-            return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.SUCCESS.getCode(),MeaasgeTextEnum.SUCCESS.getText()),HttpStatus.OK);
+            return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
         }else{
             return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.DUPLICATE.getCode(),MeaasgeTextEnum.DUPLICATE.getText()),HttpStatus.CONFLICT);
         }
+    }
+
+    @RequestMapping("/updateorg")
+    public ResponseEntity<Object> updateorg(Organization organization, HttpServletResponse response) {
+        orginazationMappper.updateOrganization(organization);
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.UPDATE_SUCCESS.getCode(),MeaasgeTextEnum.UPDATE_SUCCESS.getText()),HttpStatus.OK);
     }
 }

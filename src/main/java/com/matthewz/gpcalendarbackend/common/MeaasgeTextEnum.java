@@ -1,7 +1,8 @@
 package com.matthewz.gpcalendarbackend.common;
 
 public enum MeaasgeTextEnum {
-    SUCCESS("001","Created Success"),
+    CREATE_SUCCESS("001","Created Success"),
+    UPDATE_SUCCESS("001","Updated Success"),
     FAILED("002","Created Failed"),
     DUPLICATE("003","Duplicated Organisation Code");
 

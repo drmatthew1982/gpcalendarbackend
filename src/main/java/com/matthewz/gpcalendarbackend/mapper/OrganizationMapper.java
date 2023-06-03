@@ -11,4 +11,5 @@ public interface OrganizationMapper {
     List<Organization> findOrgByCodeAndUserId(@Param("org")Organization organization);
     List<Organization> findOrgByUserId(@Param("org")Organization organization);
     void createOrganization(@Param("org")Organization organization);
+    void updateOrganization(@Param("org")Organization organization);
 }
