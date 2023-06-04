@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.matthewz.gpcalendarbackend.mapper.OrganisationMapper">
+    <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.client.Client">
+        select * from Clients left join (select * from rel_client_user where user_id=#{user_id_for_query} )rcl
+            on clients.id = rcl.client_id;
+    </select>
+    <select id="findClientByClientIdNoAndUserId" resultType="com.matthewz.gpcalendarbackend.client.Client">
+        select * from Clients where client_id_no=#{client.client_id_no} created_user_id = #{client.created_user_id};
+    </select>
+    <select id="createClient">
+        insert into createClient (firstname,middlename,lastname,birthday,gender,client_id_no,created_user_id,created_time,modified_user_id,modified_time)
+            values (#{client.firstname}, #{client.middlename},#{client.lastname},#{client.birthday},#{client.gender},#{client.client_id_no}
+                    #{client.created_user_id},now(),#{client.created_user_id},now());
+    </select>
+    <select id="updateClient">
+        update Clients set firstname=#{client.firstname},
+                           middlename=#{client.middlename},
+                           lastname=#{client.lastname},
+                           birthday=#{client.birthday},
+                           gender=#{client.gender},
+                           client_id_no=#{client.client_id_no},
+                           modified_user_id=#{org.modified_user_id},modified_time=now()
+        where id=#{Clients.id};
+    </select>
+    <select id="createClientUserRelation">
+        insert into rel_user_org (user_id,client_id) values (#{user_id},#{client_sys_id});
+    </select>
+</mapper>

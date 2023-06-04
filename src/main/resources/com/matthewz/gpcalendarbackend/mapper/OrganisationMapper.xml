@@ -3,18 +3,18 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.matthewz.gpcalendarbackend.mapper.OrganizationMapper">
-    <select id="findOrgByCodeAndUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organization">
+<mapper namespace="com.matthewz.gpcalendarbackend.mapper.OrganisationMapper">
+    <select id="findOrgByCodeAndUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organisation">
         select * from Organizations where org_code =#{org.org_code} and created_user_id = #{org.created_user_id};
     </select>
-    <select id="findOrgByUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organization">
+    <select id="findOrgByUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organisation">
         select * from Organizations where created_user_id = #{org.created_user_id};
     </select>
-    <select id="createOrganization">
+    <select id="createOrganisation">
         insert into Organizations (org_name,org_code,created_user_id,created_time,modified_user_id,modified_time)
             values (#{org.org_name}, #{org.org_code}, #{org.created_user_id},now(),#{org.created_user_id},now());
     </select>
-    <select id="updateOrganization">
+    <select id="updateOrganisation">
         update Organizations set org_name=#{org.org_name},modified_user_id=#{org.modified_user_id},modified_time=now()
         where id=#{org.id};
     </select>

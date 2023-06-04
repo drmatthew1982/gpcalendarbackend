@@ -2,15 +2,12 @@ package com.matthewz.gpcalendarbackend.organizations;
 
 import com.matthewz.gpcalendarbackend.common.Massage;
 import com.matthewz.gpcalendarbackend.common.MeaasgeTextEnum;
-import com.matthewz.gpcalendarbackend.mapper.OrganizationMapper;
-import com.matthewz.gpcalendarbackend.mapper.UserMapper;
-import com.matthewz.gpcalendarbackend.users.User;
+import com.matthewz.gpcalendarbackend.mapper.OrganisationMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,22 +15,22 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-public class OrganizationController {
+public class OrganisationController {
     @Autowired
-    private OrganizationMapper orginazationMappper;
+    private OrganisationMapper orginazationMappper;
     @RequestMapping("/findorgbyuserid")
-    public ResponseEntity<Object> findOrgsByUserId(Organization organization, HttpServletResponse response) {
-        List<Organization> orgs = orginazationMappper.findOrgByUserId(organization);
+    public ResponseEntity<Object> findOrgsByUserId(Organisation organization, HttpServletResponse response) {
+        List<Organisation> orgs = orginazationMappper.findOrgByUserId(organization);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(orgs,HttpStatus.OK);
     }
     @RequestMapping("/createorg")
-    public ResponseEntity<Object> createorg(Organization organization, HttpServletResponse response) {
-        List<Organization> orgs = orginazationMappper.findOrgByCodeAndUserId(organization);
+    public ResponseEntity<Object> createorg(Organisation organisation, HttpServletResponse response) {
+        List<Organisation> orgs = orginazationMappper.findOrgByCodeAndUserId(organisation);
         if(orgs.size()==0) {
-            orginazationMappper.createOrganization(organization);
-            List<Organization> updatedOrgs = orginazationMappper.findOrgByCodeAndUserId(organization);
-            orginazationMappper.createOrgUserRelation(organization.getCreated_user_id(),updatedOrgs.get(0).getId());
+            orginazationMappper.createOrganisation(organisation);
+            List<Organisation> updatedOrgs = orginazationMappper.findOrgByCodeAndUserId(organisation);
+            orginazationMappper.createOrgUserRelation(organisation.getCreated_user_id(),updatedOrgs.get(0).getId());
             response.setHeader("Access-Control-Allow-Origin", "*");
             return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
         }else{
@@ -42,8 +39,8 @@ public class OrganizationController {
     }
 
     @RequestMapping("/updateorg")
-    public ResponseEntity<Object> updateorg(Organization organization, HttpServletResponse response) {
-        orginazationMappper.updateOrganization(organization);
+    public ResponseEntity<Object> updateorg(Organisation organisation, HttpServletResponse response) {
+        orginazationMappper.updateOrganisation(organisation);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.UPDATE_SUCCESS.getCode(),MeaasgeTextEnum.UPDATE_SUCCESS.getText()),HttpStatus.OK);
     }
