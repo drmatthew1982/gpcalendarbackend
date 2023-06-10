@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component(value = "organizationMapper")
+@Component(value = "clientMapper")
 public interface ClientMapper {
     List<Client> findClientsByUserId(@Param("user_id") String user_id);
     List<Client> findClientByClientIdNoAndUserId(@Param("user_id")String user_id, @Param("client_id_no") String client_id_no);
