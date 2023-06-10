@@ -3,12 +3,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.matthewz.gpcalendarbackend.mapper.OrganisationMapper">
-    <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.client.Client">
-        select * from Clients left join (select * from rel_client_user where user_id=#{user_id_for_query} )rcl
+<mapper namespace="com.matthewz.gpcalendarbackend.mapper.ClientMapper">
+    <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
+        select * from Clients left join (select * from rel_client_user where user_id=#{user_id} )rcl
             on clients.id = rcl.client_id;
     </select>
-    <select id="findClientByClientIdNoAndUserId" resultType="com.matthewz.gpcalendarbackend.client.Client">
+    <select id="findClientByClientIdNoAndUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
         select * from Clients where client_id_no=#{client.client_id_no} created_user_id = #{client.created_user_id};
     </select>
     <select id="createClient">
