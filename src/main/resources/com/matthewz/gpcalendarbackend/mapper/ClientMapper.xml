@@ -23,8 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                            birthday=#{client.birthday},
                            gender=#{client.gender},
                            client_id_no=#{client.client_id_no},
-                           modified_user_id=#{org.modified_user_id},modified_time=now()
-        where id=#{Clients.id};
+                           modified_user_id=#{client.modified_user_id},
+                           modified_time=now()
+        where id=#{client.id};
     </select>
     <select id="createClientUserRelation">
         insert into rel_client_user (user_id,client_id) values (#{user_id},#{client_sys_id});
