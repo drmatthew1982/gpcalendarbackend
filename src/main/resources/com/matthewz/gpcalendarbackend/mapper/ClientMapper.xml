@@ -22,7 +22,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                            lastname=#{client.lastname},
                            birthday=#{client.birthday},
                            gender=#{client.gender},
-                           client_id_no=#{client.client_id_no},
                            modified_user_id=#{client.modified_user_id},
                            modified_time=now()
         where id=#{client.id};
