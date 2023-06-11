@@ -1,9 +1,12 @@
 package com.matthewz.gpcalendarbackend.clients;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class Client {
     @Setter
@@ -40,6 +43,7 @@ public class Client {
 
     @Setter
     @Getter
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date birthday;
 
     @Setter
