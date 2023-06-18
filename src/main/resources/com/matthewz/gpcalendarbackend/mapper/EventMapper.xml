@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.matthewz.gpcalendarbackend.mapper.EventMapper">
+    <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.events.Event">
+        select events.*,Users.firstname,Users.middlename ,Users.lastname,Users.client_id_no,
+               Organisations.org_code,Organisations.org_name from
+            (select * from Events  where created_user_id=#{user_id} or event.assignedto=#{user_id})
+        events left join Users on events.client_id = Users.id
+        left join Organisations on events.org_id = Organisations.id
+    </select>
+    <select id="createEvent">
+        insert into Events (eventcmt,client_id,org_id,created_user_id,assignedto,starttime,endtime,reportstatus,create_time,modified_user_id,modified_time)
+            values (#{event.eventcmt}, #{event.client_id},#{event.org_id},#{event.created_user_id},#{event.assignedto},#{event.starttime},
+                    #{event.endtime},#{event.reportstatus},now(),#{event.created_user_id},now());
+    </select>
+    <select id="updateEvent">
+        update Events set   firsteventcmtname=#{event.eventcmt},
+                            client_id=#{event.client_id},
+                            org_id=#{event.org_id},
+                            assignedto=#{event.assignedto},
+                            starttime=#{event.starttime},
+                            endtime=#{event.endtime},
+                            modified_user_id=#{event.modified_user_id},
+                            modified_time=now()
+        where id=#{event.id};
+    </select>
+
+</mapper>
