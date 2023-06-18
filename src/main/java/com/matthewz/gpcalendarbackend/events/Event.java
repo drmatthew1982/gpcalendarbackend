@@ -21,11 +21,15 @@ public class Event {
 
     @Setter
     @Getter
+    String org_id;
+
+    @Setter
+    @Getter
     String createby;
 
     @Setter
     @Getter
-    String assignedto;
+    String assigned_to;
 
     @Setter
     @Getter
