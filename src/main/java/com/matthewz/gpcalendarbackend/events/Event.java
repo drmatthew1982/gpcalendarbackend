@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class Event {
@@ -14,6 +15,8 @@ public class Event {
     @Setter
     @Getter
     String eventcmt;
+
+
 
     @Setter
     @Getter
@@ -33,11 +36,35 @@ public class Event {
 
     @Setter
     @Getter
-    Date startTime;
+    Date eventdate;
 
     @Setter
     @Getter
-    Date endTime;
+    String startTimeStr;
+
+    public Time getEndTime() {
+        return Time.valueOf(endTimeStr);
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = Time.valueOf(endTimeStr);
+    }
+
+    public Time getStartTime() {
+        return Time.valueOf(startTimeStr);
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = Time.valueOf(startTimeStr);
+    }
+
+    Time startTime;
+
+    Time endTime;
+
+    @Setter
+    @Getter
+    String endTimeStr;
 
     @Setter
     @Getter
