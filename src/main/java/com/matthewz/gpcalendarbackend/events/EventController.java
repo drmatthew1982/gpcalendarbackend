@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,9 +28,18 @@ import java.util.List;
 public class EventController {
     @Autowired
     private EventMapper eventMapper;
-    @RequestMapping("/findceventssbyuserid")
-    public ResponseEntity<Object> findClientsByUserId(String user_id, HttpServletResponse response) {
-        List<Event> events = eventMapper.findEventUserId(user_id);
+    @RequestMapping("/findeventsbyuserid")
+    public ResponseEntity<Object> findClientsByUserId(String user_id,Date current_date, HttpServletResponse response) {
+        Calendar lastMontheCalendar = Calendar.getInstance();
+        lastMontheCalendar.setTime(current_date);
+        lastMontheCalendar.add(Calendar.MONTH, -1);
+        lastMontheCalendar.set(Calendar.DAY_OF_MONTH,15);
+        Calendar nextMontheCalendar = Calendar.getInstance();
+        nextMontheCalendar.setTime(current_date);
+        nextMontheCalendar.add(Calendar.MONTH, 1);
+        nextMontheCalendar.set(Calendar.DAY_OF_MONTH,15);
+        List<Event> events = eventMapper.findEventsByUserId
+                (user_id,new java.sql.Date(lastMontheCalendar.getTimeInMillis()),new java.sql.Date(nextMontheCalendar.getTimeInMillis()));
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(events,HttpStatus.OK);
     }

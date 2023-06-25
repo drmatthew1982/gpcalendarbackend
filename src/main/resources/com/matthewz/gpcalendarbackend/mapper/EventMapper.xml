@@ -2,19 +2,21 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.matthewz.gpcalendarbackend.mapper.EventMapper">
-    <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.events.Event">
-        select events.*,Users.firstname,Users.middlename ,Users.lastname,Users.client_id_no,
+    <select id="findEventsByUserId" resultType="com.matthewz.gpcalendarbackend.events.Event">
+        select events.*,Clients.firstname,Clients.middlename ,Clients.lastname,Clients.client_id_no,
                Organisations.org_code,Organisations.org_name from
-            (select * from Events  where created_user_id=#{user_id} or event.assigned_to=#{user_id})
-        events left join Users on events.client_id = Users.id
-        left join Organisations on events.org_id = Organisations.id
+            (select * from Events  where (created_user_id=#{user_id} or assigned_to=#{user_id})
+                                     and (eventdate &gt;= #{startdate} and eventdate &lt;= #{enddate})) events
+        left join Clients
+            on events.client_id = Clients.id
+        left join Organisations
+            on events.org_id = Organisations.id
     </select>
     <select id="createEvent">
         insert into Events (eventcmt,client_id,org_id,created_user_id,assigned_to,starttimeStr,endtimeStr,starttime,endtime,reportstatus,create_time,modified_user_id,modified_time,eventdate)
             values (#{event.eventcmt}, #{event.client_id},#{event.org_id},#{event.created_user_id},#{event.assigned_to},#{event.startTimeStr},#{event.endTimeStr},
-                    #{event.startTime},#{event.endTime},#{event.reportStatus},now(),#{event.created_user_id},now(),#{event.eventdate});
+                    #{event.startTimeForSql},#{event.endTimeForSql},#{event.reportStatus},now(),#{event.created_user_id},now(),#{event.eventdate});
     </select>
     <select id="updateEvent">
         update Events set   firsteventcmtname=#{event.eventcmt},
@@ -24,12 +26,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                             eventdate=#{event.eventdate},
                             startTimeStr = #{event.startTimeStr},
                             startTimeStr = #{event.endTimeStr},
-                            starttime=#{event.startTime},
-                            endtime=#{event.endTime},
+                            starttime=#{event.startTimeForSql},
+                            endtime=#{event.endTimeForSqle},
                             reportstatus=#{event.reportStatus}
                             modified_user_id=#{event.modified_user_id},
                             modified_time=now()
         where id=#{event.id};
     </select>
-
 </mapper>

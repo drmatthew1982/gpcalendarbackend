@@ -2,12 +2,13 @@ package com.matthewz.gpcalendarbackend.events;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Event {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     @Setter
     @Getter
     String id;
@@ -41,26 +42,39 @@ public class Event {
     @Setter
     @Getter
     String startTimeStr;
+    Time startTimeForSql;
 
-    public Time getEndTime() {
+    Time endTimeForSql;
+
+    String title;  String start;
+
+    String end;
+
+
+
+
+    public Time getEndTimeForSql() {
         return Time.valueOf(endTimeStr);
     }
 
-    public void setEndTime(Time endTime) {
-        this.endTime = Time.valueOf(endTimeStr);
-    }
-
-    public Time getStartTime() {
+    public Time getStartTimeForSql() {
         return Time.valueOf(startTimeStr);
     }
-
-    public void setStartTime(Time startTime) {
-        this.startTime = Time.valueOf(startTimeStr);
+    public String getTitle() {
+        return eventcmt;
     }
 
-    Time startTime;
+    public String getStart() {
+        return dateFormat.format(this.eventdate) + "T"+ this.startTimeStr;
+    }
 
-    Time endTime;
+
+
+    public String getEnd() {
+        return dateFormat.format(this.eventdate) + "T"+ this.endTimeStr;
+    }
+
+
 
     @Setter
     @Getter
