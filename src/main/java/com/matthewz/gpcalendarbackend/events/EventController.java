@@ -51,7 +51,7 @@ public class EventController {
 
     }
 
-    @RequestMapping("/updateeventt")
+    @RequestMapping("/updateevent")
     public ResponseEntity<Object> updateclient(Event event, HttpServletResponse response) {
         eventMapper.updateEvent(event);
         response.setHeader("Access-Control-Allow-Origin", "*");

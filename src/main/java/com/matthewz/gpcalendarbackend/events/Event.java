@@ -99,4 +99,26 @@ public class Event {
     @Getter
     String reportStatus;
 
+    @Setter
+    @Getter
+    String firstname;
+
+    @Setter
+    @Getter
+    String middlename;
+
+    @Setter
+    @Getter
+    String lastname;
+
+    @Setter
+    @Getter
+    String client_id_no;
+    @Setter
+    @Getter
+    String org_code;
+    @Setter
+    @Getter
+    String org_name;
+
 }
