@@ -14,9 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             on events.org_id = Organisations.id
     </select>
     <select id="createEvent">
-        insert into Events (eventcmt,client_id,org_id,created_user_id,assigned_to,starttimeStr,endtimeStr,starttime,endtime,reportstatus,create_time,modified_user_id,modified_time,eventdate)
+        insert into Events (eventcmt,client_id,org_id,created_user_id,assigned_to,starttimeStr,endtimeStr,starttime,endtime,reportstatus,create_time,modified_user_id,modified_time,eventdate,eventenddate)
             values (#{event.eventcmt}, #{event.client_id},#{event.org_id},#{event.created_user_id},#{event.assigned_to},#{event.startTimeStr},#{event.endTimeStr},
-                    #{event.startTimeForSql},#{event.endTimeForSql},#{event.reportStatus},now(),#{event.created_user_id},now(),#{event.eventdate});
+                    #{event.startTimeForSql},#{event.endTimeForSql},#{event.reportStatus},now(),#{event.created_user_id},now(),#{event.eventdate},#{event.eventEndDate});
     </select>
     <select id="updateEvent">
         update Events set   eventcmt=#{event.eventcmt},
@@ -24,6 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                             org_id=#{event.org_id},
                             assigned_to=#{event.assigned_to},
                             eventdate=#{event.eventdate},
+                            eventenddate=#{event.eventEndDate},
                             startTimeStr = #{event.startTimeStr},
                             endTimeStr = #{event.endTimeStr},
                             starttime=#{event.startTimeForSql},

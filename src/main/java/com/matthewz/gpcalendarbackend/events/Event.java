@@ -2,6 +2,7 @@ package com.matthewz.gpcalendarbackend.events;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.expression.spel.support.BooleanTypedValue;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -41,6 +42,10 @@ public class Event {
 
     @Setter
     @Getter
+    Date eventEndDate;
+
+    @Setter
+    @Getter
     String startTimeStr;
     Time startTimeForSql;
 
@@ -71,7 +76,7 @@ public class Event {
 
 
     public String getEnd() {
-        return dateFormat.format(this.eventdate) + "T"+ this.endTimeStr;
+        return dateFormat.format(this.eventEndDate) + "T"+ this.endTimeStr;
     }
 
 
@@ -121,4 +126,14 @@ public class Event {
     @Getter
     String org_name;
 
+
+//
+//    Boolean durationEditable;
+//    public Boolean getDurationEditable() {
+//        return Boolean.FALSE;
+//    }
+    Boolean resizableFromStart;
+    public Boolean getResizableFromStart() {
+        return Boolean.TRUE;
+    }
 }
