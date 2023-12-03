@@ -13,11 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join Organisations
             on events.org_id = Organisations.id
     </select>
-    <select id="createEvent">
+    <insert id="createEvent" parameterType="com.matthewz.gpcalendarbackend.events.Event" useGeneratedKeys="true"  keyProperty="id">
         insert into Events (eventcmt,client_id,org_id,created_user_id,assigned_to,starttimeStr,endtimeStr,starttime,endtime,reportstatus,create_time,modified_user_id,modified_time,eventdate,eventenddate)
             values (#{event.eventcmt}, #{event.client_id},#{event.org_id},#{event.created_user_id},#{event.assigned_to},#{event.startTimeStr},#{event.endTimeStr},
                     #{event.startTimeForSql},#{event.endTimeForSql},#{event.reportStatus},now(),#{event.created_user_id},now(),#{event.eventdate},#{event.eventEndDate});
-    </select>
+    </insert>
     <select id="updateEvent">
         update Events set   eventcmt=#{event.eventcmt},
                             client_id=#{event.client_id},

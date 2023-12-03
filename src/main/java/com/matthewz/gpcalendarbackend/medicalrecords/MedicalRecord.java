@@ -23,5 +23,21 @@ public class MedicalRecord {
 
     @Setter
     @Getter
-    String lines;
+    String positions;
+
+    @Setter
+    @Getter
+    String created_user_id;
+
+    @Setter
+    @Getter
+    Date created_time;
+
+    @Setter
+    @Getter
+    String modified_user_id;
+
+    @Setter
+    @Getter
+    Date modified_time;
 }

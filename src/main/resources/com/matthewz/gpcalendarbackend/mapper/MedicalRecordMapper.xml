@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.matthewz.gpcalendarbackend.mapper.MedicalRecordMapper">
+    <select id="findMedicalRecordByEventId" resultType="com.matthewz.gpcalendarbackend.medicalrecords.MedicalRecord">
+        select * from medical_records where eventid=#{eventid};
+    </select>
+    <select id="createMedicalRecord">
+        insert into medical_records
+            (eventid,summary,positions,created_user_id,created_time,
+             modified_user_id,modified_time)
+            values
+                (#{medicalRecord.eventid}, #{medicalRecord.summary},#{medicalRecord.positions},#{medicalRecord.created_user_id},now(),#{medicalRecord.created_user_id},now());
+    </select>
+    <select id="updateMedicalRecord">
+        update medical_records set  summary=#{medicalRecord.eventcmt},
+                            positions=#{medicalRecord.medicalRecord.positions},
+                            modified_user_id=#{medicalRecord.modified_user_id},
+                            modified_time=now()
+                      where id=#{medicalRecords.id};
+    </select>
+</mapper>

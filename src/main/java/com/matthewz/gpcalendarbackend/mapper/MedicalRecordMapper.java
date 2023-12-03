@@ -7,7 +7,7 @@ import java.util.List;
 
 @Component(value = "medicalRecordMapper")
 public interface MedicalRecordMapper {
-    List<MedicalRecord> findMedicalRecordByEventId(@Param("eventid") String eventid);
+    List<MedicalRecord> findMedicalRecordByEventId(@Param("eventid")String eventid);
     void createMedicalRecord(@Param("medicalRecord")MedicalRecord medicalRecord);
     void updateMedicalRecord(@Param("medicalRecord")MedicalRecord medicalRecord);
 }

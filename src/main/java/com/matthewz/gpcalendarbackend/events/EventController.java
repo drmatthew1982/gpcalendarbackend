@@ -5,6 +5,8 @@ import com.matthewz.gpcalendarbackend.common.Massage;
 import com.matthewz.gpcalendarbackend.common.MeaasgeTextEnum;
 import com.matthewz.gpcalendarbackend.mapper.ClientMapper;
 import com.matthewz.gpcalendarbackend.mapper.EventMapper;
+import com.matthewz.gpcalendarbackend.mapper.MedicalRecordMapper;
+import com.matthewz.gpcalendarbackend.medicalrecords.MedicalRecord;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ import java.util.List;
 public class EventController {
     @Autowired
     private EventMapper eventMapper;
+    @Autowired
+    private MedicalRecordMapper medicalRecordMapper;
     @RequestMapping("/findeventsbyuserid")
     public ResponseEntity<Object> findClientsByUserId(String user_id,Date current_date, HttpServletResponse response) {
         Calendar lastMontheCalendar = Calendar.getInstance();
@@ -46,6 +50,13 @@ public class EventController {
     @RequestMapping("/createevent")
     public ResponseEntity<Object> createoclient(Event event, HttpServletResponse response) {
         eventMapper.createEvent(event);
+        List<MedicalRecord> recordlist = medicalRecordMapper.findMedicalRecordByEventId(event.getId());
+        if(recordlist.size()==0){
+            MedicalRecord medicalRecord =  new MedicalRecord();
+            medicalRecord.setEventid(event.getId());
+            medicalRecord.setCreated_user_id(event.getCreated_user_id());
+            medicalRecordMapper.createMedicalRecord(medicalRecord);
+        }
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
 
