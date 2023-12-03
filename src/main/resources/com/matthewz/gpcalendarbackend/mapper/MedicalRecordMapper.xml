@@ -14,10 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                 (#{medicalRecord.eventid}, #{medicalRecord.summary},#{medicalRecord.positions},#{medicalRecord.created_user_id},now(),#{medicalRecord.created_user_id},now());
     </select>
     <select id="updateMedicalRecord">
-        update medical_records set  summary=#{medicalRecord.eventcmt},
-                            positions=#{medicalRecord.medicalRecord.positions},
+        update medical_records set  summary=#{medicalRecord.summary},
+                            positions=#{medicalRecord.positions},
                             modified_user_id=#{medicalRecord.modified_user_id},
                             modified_time=now()
-                      where id=#{medicalRecords.id};
+                      where id=#{medicalRecord.id};
     </select>
 </mapper>
