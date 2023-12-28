@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserMapper {
     List<User> selectUserList();
     List<User> findUser(@Param("username")String username, @Param("password")String password);
+    List<String> getSeckey(@Param("username")String username);
+    void updateSeckey(@Param("userid")String userid, @Param("seckey")String seckey);
 }
