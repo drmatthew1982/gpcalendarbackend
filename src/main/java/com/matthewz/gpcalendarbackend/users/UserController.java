@@ -44,6 +44,7 @@ public class UserController {
         System.out.println(user.getPassword());
         //AES/CBC/PKCS5Padding
         //AES/CBC/NoPadding
+        //AES/CBC/ZeroPadding
         String decodedPassword = SecUtil.decrypt("AES/CBC/NoPadding","AES",user.getPassword(),"1111222233334444","1111222233334444" );
         System.out.println(decodedPassword);
         System.out.println(decodedPassword.substring(0,decodedPassword.length()-6));
