@@ -10,7 +10,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="findUser" resultType="com.matthewz.gpcalendarbackend.users.User">
         select * from Users where username = #{username} and password = #{password};
     </select>
+    <select id="getSeckey">
+        select seckey from Users where username = #{username};
+    </select>
     <select id="updateSeckey">
         update Users set seckey=#{seckey} where id=#{userid};
     </select>
+    <select id="updatePassword">
+        update Users set password=#{password} where id=#{userid};
+    </select>
+
 </mapper>

@@ -11,4 +11,5 @@ public interface UserMapper {
     List<User> findUser(@Param("username")String username, @Param("password")String password);
     List<String> getSeckey(@Param("username")String username);
     void updateSeckey(@Param("userid")String userid, @Param("seckey")String seckey);
+    void updatePassword(@Param("id")String userid, @Param("password")String password);
 }
