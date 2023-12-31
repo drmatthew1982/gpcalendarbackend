@@ -2,6 +2,7 @@ package com.matthewz.gpcalendarbackend.users;
 import com.matthewz.gpcalendarbackend.mapper.UserMapper;
 import com.matthewz.gpcalendarbackend.utils.SecUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +14,9 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 @RestController
@@ -30,13 +33,18 @@ public class UserController {
         return users;
     }
     @PostMapping("/logincheck")
-    public ResponseEntity<Object> logincheck(String username, String password, HttpServletResponse response) {
-        List<User> users = userMappper.findUser(username,password);
-        if(users.size()>0) {
-            this.updatesecky(users.get(0).getId());
-        }
+    public ResponseEntity<Object> logincheck(String username, String password, HttpServletResponse response) throws NoSuchAlgorithmException {
+        List<User> users = userMappper.findUser(username);
         response.setHeader("Access-Control-Allow-Origin", "*");
-        return new ResponseEntity<Object>(users, HttpStatus.OK);
+        if(users.size()>0) {
+            User user = users.get(0);
+            if(password.toLowerCase().equals(SecUtil.md5(user.getPassword()+user.getSeckey()).toLowerCase())) {
+                System.out.println("pass");
+                this.updatesecky(user.getId());
+                return new ResponseEntity<Object>(users, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<Object>(new ArrayList<User>(), HttpStatus.OK);
     }
 
     @PostMapping("/updatepassword")
@@ -45,10 +53,9 @@ public class UserController {
         //AES/CBC/PKCS5Padding
         //AES/CBC/NoPadding
         //AES/CBC/ZeroPadding
-        String decodedPassword = SecUtil.decrypt("AES/CBC/NoPadding","AES",user.getPassword(),"1111222233334444","1111222233334444" );
-        System.out.println(decodedPassword);
-        System.out.println(decodedPassword.substring(0,decodedPassword.length()-6));
-        //userMappper.updatePassword(id,password);
+        String decodedPassword = SecUtil.decrypt("AES/CBC/NoPadding","AES",user.getPassword(),SecUtil.fulfillZeroTo16(user.getUsername().substring(0,3)),SecUtil.fulfillZeroTo16(user.getUsername().substring(user.getUsername().length()-3)) );
+
+        userMappper.updatePassword(user.getId(),decodedPassword.substring(0,decodedPassword.length()-16));
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(HttpStatus.OK);
     }
@@ -63,4 +70,5 @@ public class UserController {
         String seckey = RandomStringUtils.randomAlphanumeric(10);
         userMappper.updateSeckey(id,seckey);
     }
+
 }

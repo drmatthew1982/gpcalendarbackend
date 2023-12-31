@@ -8,8 +8,8 @@ import java.util.List;
 @Component(value = "userMapper")
 public interface UserMapper {
     List<User> selectUserList();
-    List<User> findUser(@Param("username")String username, @Param("password")String password);
+    List<User> findUser(@Param("username")String username);
     List<String> getSeckey(@Param("username")String username);
     void updateSeckey(@Param("userid")String userid, @Param("seckey")String seckey);
-    void updatePassword(@Param("id")String userid, @Param("password")String password);
+    void updatePassword(@Param("userid")String userid, @Param("password")String password);
 }

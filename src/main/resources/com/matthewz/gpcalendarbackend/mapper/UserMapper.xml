@@ -8,9 +8,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select * from Users;
     </select>
     <select id="findUser" resultType="com.matthewz.gpcalendarbackend.users.User">
-        select * from Users where username = #{username} and password = #{password};
+        select * from Users where username = #{username};
     </select>
-    <select id="getSeckey">
+    <select id="getSeckey" resultType="java.lang.String">
         select seckey from Users where username = #{username};
     </select>
     <select id="updateSeckey">

@@ -29,8 +29,9 @@ public class User implements Serializable {
     @Getter
     String middlename;
 
+
     @Setter
     @Getter
-    String lastname;
+    String seckey;
 
 }
