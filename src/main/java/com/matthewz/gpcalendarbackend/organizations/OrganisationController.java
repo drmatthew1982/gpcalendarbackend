@@ -17,7 +17,7 @@ public class OrganisationController {
     @Autowired
     private OrganisationMapper orginazationMappper;
     @RequestMapping("/findorgbyuserid")
-    public ResponseEntity<Object> findOrgsByUserId(@RequestBody Organisation organization, HttpServletResponse response) {
+    public ResponseEntity<Object> findOrgsByUserId(Organisation organization, HttpServletResponse response) {
         List<Organisation> orgs = orginazationMappper.findOrgByUserId(organization);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(orgs,HttpStatus.OK);
