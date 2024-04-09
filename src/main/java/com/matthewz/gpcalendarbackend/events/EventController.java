@@ -14,10 +14,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -33,7 +30,7 @@ public class EventController {
     @Autowired
     private MedicalRecordMapper medicalRecordMapper;
     @RequestMapping("/findeventsbyuserid")
-    public ResponseEntity<Object> findClientsByUserId(String user_id,Date current_date, HttpServletResponse response) {
+    public ResponseEntity<Object> findEventssByUserId(String user_id,Date current_date, HttpServletResponse response) {
         Calendar lastMontheCalendar = Calendar.getInstance();
         lastMontheCalendar.setTime(current_date);
         lastMontheCalendar.add(Calendar.MONTH, -1);
@@ -48,7 +45,7 @@ public class EventController {
         return new ResponseEntity<Object>(events,HttpStatus.OK);
     }
     @RequestMapping("/createevent")
-    public ResponseEntity<Object> createoclient(Event event, HttpServletResponse response) {
+    public ResponseEntity<Object> createEvent(@RequestBody Event event, HttpServletResponse response) {
         eventMapper.createEvent(event);
         List<MedicalRecord> recordlist = medicalRecordMapper.findMedicalRecordByEventId(event.getId());
         if(recordlist.size()==0){
@@ -63,7 +60,7 @@ public class EventController {
     }
 
     @RequestMapping("/updateevent")
-    public ResponseEntity<Object> updateclient(Event event, HttpServletResponse response) {
+    public ResponseEntity<Object> updateclient(@RequestBody Event event, HttpServletResponse response) {
         eventMapper.updateEvent(event);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.UPDATE_SUCCESS.getCode(),MeaasgeTextEnum.UPDATE_SUCCESS.getText()),HttpStatus.OK);

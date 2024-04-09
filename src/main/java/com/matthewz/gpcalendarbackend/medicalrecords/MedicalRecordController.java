@@ -12,10 +12,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,13 +31,13 @@ public class MedicalRecordController {
         return new ResponseEntity<Object>(MedicalRecords,HttpStatus.OK);
     }
     @RequestMapping("/createmedicalrecord")
-    public ResponseEntity<Object> createoclient(MedicalRecord medicalRecord, HttpServletResponse response) {
+    public ResponseEntity<Object> createoclient(@RequestBody MedicalRecord medicalRecord, HttpServletResponse response) {
         mdicalRecordMapper.createMedicalRecord(medicalRecord);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
     }
     @RequestMapping("/updatemedicalrecord")
-    public ResponseEntity<Object> updateMedicalRecord(MedicalRecord medicalRecord, HttpServletResponse response) {
+    public ResponseEntity<Object> updateMedicalRecord(@RequestBody MedicalRecord medicalRecord, HttpServletResponse response) {
         mdicalRecordMapper.updateMedicalRecord(medicalRecord);
         System.out.println(medicalRecord.id);
         System.out.println(medicalRecord.positions);

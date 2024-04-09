@@ -11,10 +11,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.ServletRequestDataBinder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +29,7 @@ public class ClientController {
         return new ResponseEntity<Object>(clients,HttpStatus.OK);
     }
     @RequestMapping("/createclient")
-    public ResponseEntity<Object> createoclient(Client client, HttpServletResponse response) {
+    public ResponseEntity<Object> createoclient(@RequestBody Client client, HttpServletResponse response) {
         List<Client> clients = clientonMapper.findClientByClientIdNoAndUserId(client.getClient_id_no(),client.getCreated_user_id());
         if(clients.size()==0) {
             clientonMapper.createClient(client);
@@ -46,7 +43,7 @@ public class ClientController {
     }
 
     @RequestMapping("/updateclient")
-    public ResponseEntity<Object> updateclient(Client client, HttpServletResponse response) {
+    public ResponseEntity<Object> updateclient(@RequestBody Client client, HttpServletResponse response) {
         clientonMapper.updateClient(client);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.UPDATE_SUCCESS.getCode(),MeaasgeTextEnum.UPDATE_SUCCESS.getText()),HttpStatus.OK);
