@@ -51,7 +51,9 @@ public class Event {
 
     Time endTimeForSql;
 
-    String title;  String start;
+    String title;
+
+    String start;
 
     String end;
 

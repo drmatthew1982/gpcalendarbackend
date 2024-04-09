@@ -40,7 +40,7 @@ public class UserController {
             User user = users.get(0);
             if(password.toLowerCase().equals(SecUtil.md5(user.getPassword()+user.getSeckey()).toLowerCase())) {
                 System.out.println("pass");
-                this.updatesecky(user.getId());
+                //this.updatesecky(user.getId());
                 return new ResponseEntity<Object>(users, HttpStatus.OK);
             }
         }

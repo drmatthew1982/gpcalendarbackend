@@ -31,12 +31,21 @@ public class SecUtil {
         System.out.println(string);
         return string;
     }
+    //https://stackoverflow.com/questions/66235649/why-does-c-sharp-and-java-application-calculate-different-md5-values-for-the-sam
+    //https://stackoverflow.com/questions/9655181/java-convert-a-byte-array-to-a-hex-string/13006907#13006907
     public static String md5(String string) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(string.getBytes());
         byte[] digest = md.digest();
         String md5String = DatatypeConverter
                 .printHexBinary(digest);
-       return md5String;
+//        StringBuilder sb = new StringBuilder(digest.length * 2);
+//        for(byte b: digest)
+//            sb.append(String.format("%02x", b));
+//        return sb.toString();
+          return md5String;
+    }
+    public static void main(String args[]) throws NoSuchAlgorithmException {
+        System.out.println(md5("020f53912edb7cefaa36aaa6f374542e8xFO3tknGE"));
     }
 }
