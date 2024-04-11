@@ -26,8 +26,6 @@ public class OrganisationController {
     public ResponseEntity<Object> createorg(@RequestBody Organisation organisation, HttpServletResponse response) {
         List<Organisation> orgs = orginazationMappper.findOrgByCodeAndUserId(organisation);
         if(orgs.size()==0) {
-            System.out.println(organisation.getOrg_code());
-            System.out.println(organisation.getOrg_name());
             orginazationMappper.createOrganisation(organisation);
             List<Organisation> updatedOrgs = orginazationMappper.findOrgByCodeAndUserId(organisation);
             orginazationMappper.createOrgUserRelation(organisation.getCreated_user_id(),updatedOrgs.get(0).getId());
