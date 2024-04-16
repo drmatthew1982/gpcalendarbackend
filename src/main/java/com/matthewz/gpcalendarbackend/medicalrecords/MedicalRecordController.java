@@ -23,24 +23,22 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class MedicalRecordController {
     @Autowired
-    private MedicalRecordMapper mdicalRecordMapper;
+    private MedicalRecordMapper medicalRecordMapper;
     @RequestMapping("/findmedicalrecordbyeventid")
     public ResponseEntity<Object> findMedicalRecordByEventId(String event_id,HttpServletResponse response) {
-        List<MedicalRecord> MedicalRecords = mdicalRecordMapper.findMedicalRecordByEventId(event_id);
+        List<MedicalRecord> medicalRecords = medicalRecordMapper.findMedicalRecordByEventId(event_id);
         response.setHeader("Access-Control-Allow-Origin", "*");
-        return new ResponseEntity<Object>(MedicalRecords,HttpStatus.OK);
+        return new ResponseEntity<Object>(medicalRecords,HttpStatus.OK);
     }
     @RequestMapping("/createmedicalrecord")
     public ResponseEntity<Object> createoclient(@RequestBody MedicalRecord medicalRecord, HttpServletResponse response) {
-        mdicalRecordMapper.createMedicalRecord(medicalRecord);
+        medicalRecordMapper.createMedicalRecord(medicalRecord);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.CREATE_SUCCESS.getCode(),MeaasgeTextEnum.CREATE_SUCCESS.getText()),HttpStatus.OK);
     }
     @RequestMapping("/updatemedicalrecord")
     public ResponseEntity<Object> updateMedicalRecord(@RequestBody MedicalRecord medicalRecord, HttpServletResponse response) {
-        mdicalRecordMapper.updateMedicalRecord(medicalRecord);
-        System.out.println(medicalRecord.id);
-        System.out.println(medicalRecord.positions);
+        medicalRecordMapper.updateMedicalRecord(medicalRecord);
         response.setHeader("Access-Control-Allow-Origin", "*");
         return new ResponseEntity<Object>(new Massage(MeaasgeTextEnum.UPDATE_SUCCESS.getCode(),MeaasgeTextEnum.UPDATE_SUCCESS.getText()),HttpStatus.OK);
     }
