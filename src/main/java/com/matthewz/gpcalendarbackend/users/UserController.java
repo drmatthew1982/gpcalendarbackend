@@ -27,11 +27,11 @@ public class UserController {
     /**
      * 查询所有用户信息
      */
-    @GetMapping("/hello")
-    public List<User> hello() {
-        List<User> users = userMappper.selectUserList();
-        return users;
-    }
+//    @GetMapping("/hello")
+//    public List<User> hello() {
+//        List<User> users = userMappper.selectUserList();
+//        return users;
+//    }
     @PostMapping("/logincheck")
     public ResponseEntity<Object> logincheck(String username, String password, HttpServletResponse response) throws NoSuchAlgorithmException {
         List<User> users = userMappper.findUser(username);
@@ -49,7 +49,9 @@ public class UserController {
 
     @PostMapping("/updatepassword")
     public ResponseEntity<Object> updatepassword(User user, HttpServletResponse response) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
-        System.out.println(user.getPassword());
+        if(user.getUsername().equals("tester")){
+            new ResponseEntity<Object>("tester cannot update password",HttpStatus.OK);
+        }
         //AES/CBC/PKCS5Padding
         //AES/CBC/NoPadding
         //AES/CBC/ZeroPadding
