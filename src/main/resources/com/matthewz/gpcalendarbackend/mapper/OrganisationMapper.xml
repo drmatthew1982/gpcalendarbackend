@@ -5,17 +5,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.matthewz.gpcalendarbackend.mapper.OrganisationMapper">
     <select id="findOrgByCodeAndUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organisation">
-        select * from Organisations where org_code =#{org.org_code} and created_user_id = #{org.created_user_id};
+        select * from organisations where org_code =#{org.org_code} and created_user_id = #{org.created_user_id};
     </select>
     <select id="findOrgByUserId" resultType="com.matthewz.gpcalendarbackend.organizations.Organisation">
-        select * from Organisations where created_user_id = #{org.created_user_id};
+        select * from organisations where created_user_id = #{org.created_user_id};
     </select>
     <select id="createOrganisation">
-        insert into Organisations (org_name,org_code,created_user_id,created_time,modified_user_id,modified_time)
+        insert into organisations (org_name,org_code,created_user_id,created_time,modified_user_id,modified_time)
             values (#{org.org_name}, #{org.org_code}, #{org.created_user_id},now(),#{org.created_user_id},now());
     </select>
     <select id="updateOrganisation">
-        update Organisations set org_name=#{org.org_name},modified_user_id=#{org.modified_user_id},modified_time=now()
+        update organisations set org_name=#{org.org_name},modified_user_id=#{org.modified_user_id},modified_time=now()
         where id=#{org.id};
     </select>
     <select id="createOrgUserRelation">

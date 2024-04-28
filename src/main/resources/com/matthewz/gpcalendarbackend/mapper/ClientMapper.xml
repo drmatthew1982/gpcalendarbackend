@@ -5,14 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.matthewz.gpcalendarbackend.mapper.ClientMapper">
     <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
-        select * from Clients left join (select * from rel_client_user where user_id=#{user_id} )rcl
+        select * from clients left join (select * from rel_client_user where user_id=#{user_id} )rcl
             on clients.id = rcl.client_id;
     </select>
     <select id="findClientByClientIdNoAndUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
-        select * from Clients where client_id_no=#{client_id_no} and created_user_id = #{created_user_id};
+        select * from clients where client_id_no=#{client_id_no} and created_user_id = #{created_user_id};
     </select>
     <select id="createClient">
-        insert into Clients (firstname,middlename,lastname,birthday,gender,client_id_no,created_user_id,created_time,modified_user_id,modified_time)
+        insert into clients (firstname,middlename,lastname,birthday,gender,client_id_no,created_user_id,created_time,modified_user_id,modified_time)
             values (#{client.firstname}, #{client.middlename},#{client.lastname},#{client.birthday},#{client.gender},#{client.client_id_no},
                     #{client.created_user_id},now(),#{client.created_user_id},now());
     </select>

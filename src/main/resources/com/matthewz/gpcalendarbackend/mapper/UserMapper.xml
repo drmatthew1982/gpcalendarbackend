@@ -5,19 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.matthewz.gpcalendarbackend.mapper.UserMapper">
     <select id="selectUserList" resultType="com.matthewz.gpcalendarbackend.users.User">
-        select * from Users;
+        select * from users;
     </select>
     <select id="findUser" resultType="com.matthewz.gpcalendarbackend.users.User">
-        select * from Users where username = #{username};
+        select * from users where username = #{username};
     </select>
     <select id="getSeckey" resultType="java.lang.String">
-        select seckey from Users where username = #{username};
+        select seckey from users where username = #{username};
     </select>
     <select id="updateSeckey">
-        update Users set seckey=#{seckey} where id=#{userid};
+        update users set seckey=#{seckey} where id=#{userid};
     </select>
     <select id="updatePassword">
-        update Users set password=#{password} where id=#{userid};
+        update users set password=#{password} where id=#{userid};
     </select>
 
 </mapper>
