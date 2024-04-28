@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.matthewz.gpcalendarbackend.mapper.ClientMapper">
     <select id="findClientsByUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
-        select * from clients left join (select * from rel_client_user where user_id=#{user_id} )rcl
+        select * from clients right join (select * from rel_client_user where user_id=#{user_id} )rcl
             on clients.id = rcl.client_id;
     </select>
     <select id="findClientByClientIdNoAndUserId" resultType="com.matthewz.gpcalendarbackend.clients.Client">
