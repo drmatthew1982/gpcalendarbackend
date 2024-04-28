@@ -50,7 +50,7 @@ public class UserController {
     @PostMapping("/updatepassword")
     public ResponseEntity<Object> updatepassword(User user, HttpServletResponse response) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         if(user.getUsername().equals("tester")){
-            new ResponseEntity<Object>("tester cannot update password",HttpStatus.OK);
+            new ResponseEntity<Object>("User “tester” cannot update password",HttpStatus.OK);
         }
         //AES/CBC/PKCS5Padding
         //AES/CBC/NoPadding
