@@ -1,10 +1,11 @@
 package com.matthewz.gpcalendarbackend.utils;
 
-import jakarta.xml.bind.DatatypeConverter;
+//import jakarta.xml.bind.DatatypeConverter;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -46,6 +47,8 @@ public class SecUtil {
           return md5String;
     }
     public static void main(String args[]) throws NoSuchAlgorithmException {
+        System.out.println(md5(md5("retsettester").toLowerCase()+"123456"));
+        System.out.println(md5("retsettester").toLowerCase());
         System.out.println(md5("020f53912edb7cefaa36aaa6f374542e8xFO3tknGE"));
     }
 }

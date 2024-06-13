@@ -1,8 +1,8 @@
 package com.matthewz.gpcalendarbackend.users;
 import com.matthewz.gpcalendarbackend.mapper.UserMapper;
 import com.matthewz.gpcalendarbackend.utils.SecUtil;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.xml.bind.DatatypeConverter;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.xml.bind.DatatypeConverter;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.servlet.http.HttpServletResponse;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
